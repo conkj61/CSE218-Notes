@@ -1,0 +1,31 @@
+3/5/19 notes, beginning at 11:53 A.M.
+1. You CANNOT create an instance of a type parameter.
+	ex: T myT - new T();   <--This cannot be done.
+	
+	public class MyClass {  <-- furthering above example
+		public MyClass() {
+			t myT = new T();   <--- this CANNOT be done
+		}
+	}
+	
+2. You CANNOT create an array of generic class objects.
+	ex: Point<>[] arr = new Point<>[10];  <-- this CANNOT be done
+	
+3. A generic class' type parameter CANNOT be the type of a static field and cannot be reference to in a
+   static method. (Static means the entire virtual machine can only have one instance of the method. Only one
+   				value allowed. Never goes on the heap.)
+	ex:
+	public class MyClass<T> {
+		private static T value;  <--This is NOT allowed
+			
+		public static void doSomething() {  <--This also CANNOT be
+			T myValue;  <--This will be checked by compiler, red line will show up not letting us do this
+		}
+	}
+	
+4. You CANNOT make an exception class using generics.
+
+5. All generic placeholders, during runtime all get replaced by actual data. They are all temporary, it delays
+	creating objects until runtime. That process is known as "Erasure". Meaning it compiles with the placeholder
+	and then in runtime the placeholders don't get used, they get replaced. This does not effect speed of the
+	program.

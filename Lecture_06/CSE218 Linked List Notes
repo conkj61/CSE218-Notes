@@ -1,0 +1,41 @@
+Notes 2/19/19 12:06 P.M.
+
+"For everything we have worked with so far has been using arrays. Now we will start to go over
+something that is not an array."
+We will begin talking about a data structure known as, "Linked List".
+Linked list came to fruition in the search of being faster/more efficient.
+This data structure will only work with objects, "if using a primative data type, we will need to
+box that with an object."
+
+ Link     Link     Link     Link
+[    ]---[    ]---[    ]---[    ]
+
+all of the links will be (must be) connected
+each link will have data, and a variable known as next
+(will be referenced as?) Link next;
+
+ Link     Link     Link     Link
+[data]___[data]___[data]___[data]
+[next]   [next]   [next]   [next]
+
+every link has the data you want to store (data)
+as well as having an additional 8 bytes to hold the memory address of the next link (next)
+The linked list will have two classes, the stored data (1), and the memory address of the 
+previous list (2)
+
+"So what don't we like about arrays that got us here?"
+A: arrays are not really flexible, we need to know the data type, and their size is not flexible (
+whenever we need to add another element after max size, a whole other array must be created and
+the old array copied to it). This become truly nonsensical working with arbitrarily large arrays.
+Also when working with arrays whenever we want to insert something into the array, we actually have
+to copy and push everything to the next index in the array.
+
+When working with Linked List, there is no pushing of indexes. Instead all we do is change where the
+memory addresses(next class) are pointing to. "Hey instead of pointing to me, point to my neighbor instead.
+Also linked list doesn't need a predetermined size, and since it stores object the data type stored
+is far more flexible. When shrinking or growing the linked list it is also much easier.
+Since the are memory addresses, when removing data from the list, we just have nothing point to it's
+address, meaning java garbage collection will automatically clean it up.
+
+"What negatives exist for linked list?"
+A: 
