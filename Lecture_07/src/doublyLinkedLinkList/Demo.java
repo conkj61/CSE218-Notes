@@ -5,9 +5,14 @@ public class Demo {
 	public static void main(String[] args) {
 		// DoublyLinkedList demo
 		DoublyLinkedList theList = new DoublyLinkedList();
+		theList.insertLast(69);
+		theList.displayForward();
 		theList.insertFirst(22);
+		theList.displayForward();
 		theList.insertFirst(44);
+		theList.displayForward();
 		theList.insertFirst(66);
+		theList.displayForward();
 		
 		theList.displayBackwards();
 		theList.displayForward();

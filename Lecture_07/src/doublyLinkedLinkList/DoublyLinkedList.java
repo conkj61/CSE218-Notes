@@ -112,8 +112,9 @@ public class DoublyLinkedList {
 		Link newLink = new Link(data);
 		if(isEmpty()) { //special case of list being empty
 			first = newLink;
+		} else {
+			last.next = newLink; //same as first but inverse, previous last will point to the new link
 		}
-		last.next = newLink; //same as first but inverse, previous last will point to the new link
 		newLink.previous = last; //the new link's previous set to the existing last
 		last = newLink; //set new link as the end of the chain
 	}
