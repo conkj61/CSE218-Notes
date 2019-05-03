@@ -11,7 +11,7 @@ public class Point<T> { // 11:43 make class generic by adding <T>
 		this.y = y;
 	}
 	
-	public void display(Point<? super Integer> point) { // 11:47 A.M. added <M super Integer> this is a lower
+	public void display(Point<? super Double> point) { // 11:47 A.M. added <M super Integer> this is a lower
 					//bound, that means that only classes above integer are allowed
 		System.out.println(point);
 	}
