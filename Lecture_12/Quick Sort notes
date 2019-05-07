@@ -1,0 +1,10 @@
+Quick Sort notes:
+bigO: O(n(logn))
+	This is the most popular general sorting method.
+	**If original data is inversely sorted then O(n^2), very bad.**
+	Because of this, we usually try to test if data is inversely sorted first.
+	If it is, then don't use this to begin with, instead use something else.
+	
+	Does not require extra space**
+	
+Uses Partitioning to sort, this value is known as our *Pivot Value*

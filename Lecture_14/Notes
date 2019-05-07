@@ -1,0 +1,42 @@
+Heap notes.  (Heap sort)
+	1. Binary Tree ***NOT A BINARY SEARCH TREE***
+	
+	2. Parent is ALWAYS: either greater/equal than child
+						 or smaller/equal than child
+						 
+	3. Tree has to be "complete". Complete means the tree has no holes in it
+			This	o								o		This tree is
+			tree   / \							   / \		incomplete, it's
+			is	  /	  \							  /	  \		missing a child in
+		complete /	   \						 /	   \	the bottom right branch.
+	(no holes)	o	    o						o	    o
+			   / \     / \					   / \     / \
+			  o   o   o   o					  o   o   o   o
+			 / \ / \ / \ / \				 / \ / \ / \   \
+			o  oo  o o  oo  o				o  oo  o o  o   o
+						 ^								 ^
+
+The heap is ALWAYS good for PRIORITY queue, bigO for the heap to implement priority queue is O(logn).
+It is essentially a strictly better/more efficient priority queue.
+	Parent is always (x - 1) / 2
+	left child 		 (2 * x) + 1
+	right child 	 (2 * x) + 2
+						o			
+					   / \			
+					  /	  \			
+					 /	   \		
+					o	    o		
+				   / \     / \		
+				  o   o   o   o		
+				 / \ / \ / \ / \	
+				o  oo  o o  oo  o	
+			
+	Each removal is O(logn),
+	(known as trickle down)
+	
+To do insertion we want to work from the bottom up:
+	Start by inserting at the first available node from the left.
+	Then make "swaps" as appropriate to make sure the tree obeys parent/child rules.
+	
+	BigO is O(logn)
+	"Trickle up"

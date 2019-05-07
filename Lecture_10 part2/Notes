@@ -1,0 +1,5 @@
+Merge Sort notes:
+BigO:
+	Time: always O(n(logn))
+	space: O(n), will use nearly double the space needed to store when sorting.
+not sensitive to the original data
