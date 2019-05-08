@@ -1,0 +1,24 @@
+CSE218 Homework Problem Set 4
+
+1.  Write a generic binary-search method.
+
+2.  Implement a generic bag class that works with Comparable objects only. The bag
+	should have the following methods: add, display, findMax, findMin, deleteMax,
+	DeleteMin, and insertionSort. You need to implement JavaFX GUI, so the user can
+	choose which type of objects (choose from Integer, Double, and String) to be used in
+	the bag. You should then allow the user to enter some values. You must then
+	implement a series of buttons, each invoking one aforementioned method and
+	displaying the corresponding result when clicked.
+
+3.  Implement a game board with 10 X 10 cells and a “Undo” button below it. Each cell of
+	the game board is made of a JavaFX button. When the user starts the game, a ladybug
+	image will be placed on a random button on the board. As the user clicks on any one
+	of the cells, the bug will jump to that cell. The bug will travel as such as long as the
+	user continues clicking on cells. When the user clicks the UNDO button each time,
+	however, the bug will back-track one step. The bug could travel back to its original
+	starting position if the user wishes to do so.
+
+4.  The same problem as described before. But this time, the bug is only allowed to jump
+	to an adjacent cell, not remote ones. Clicking on a remote cell will simply produce an
+	error message alert. The “Undo button” will still allow the bug to back-track a step
+	each time it is clicked.
