@@ -1,0 +1,79 @@
+CSE218 Homework Problem Set 3
+
+1. Write a JavaFX GUI application that will show two text fields and four buttons. The text fields should
+	have prompt text indicating NAME and GPA, respectively. The four button should be marked as STACK
+	PUSH, STACK POP, QUEUE INSERT, and QUEUE REMOVE, respectively. When the two text fields are
+	filled with a student’s name and GPA, that student object, with its student ID automatically generated
+	sequentially, should be either added to a stack or a queue depending on whether the STACK PUSH or
+	the QUEUE INSERT button is clicked by the user. The user could add a bunch of student objects as such
+	continuously into the stack and queue. Now the user can click either STACH POP or QUEUE REMOVE,
+	and at such time an appropriate student object will be removed accordingly from the stack or queue
+	and displayed in a text area showing the its student ID, name, and GPA.
+	You must implement the stack and queue using arrays.
+	Discuss the Big O complexity levels of the operations.
+
+2. Same problem as above, but this time, you must implement the stack and queue using linked lists.
+	Also, discuss the Big O complexity levels of the operations.
+
+3. Let’s simulate an airport operation. Each flight has the following attributes: Flight Number, Airline
+	Name, a Landing Priority Level ranging from 1 to 10 with 10 being the highest priority, and a Time
+	Stamp indicating its arrival time above the airport. Your program will allow the flights with the highest
+	priority to land first. For flights with the same priority levels, they will land based on the time stamps –
+	Earlier arrivals will land earlier than the later ones. You will need a GUI to construct flights and a text
+	area to display the landing order at any moment of time. You must use a heap to construct a priority
+	queue in this operation.
+
+
+					Linked List Project
+
+Motivation:
+In celebrating Bob Dylan’s winning of the Nobel Prize in Literature, we will do some silly work based on his song entitled
+“Blowing in the Wind”, probably one of his most famous songs.
+In case you are not familiar with the song, here is the link on youtube:
+	https://www.youtube.com/watch?v=3l4nVByCL44
+I have its lyrics cleaned up a little so you have something like the following:
+
+Data:
+how many roads must a man walk down before you call him a man how many seas must a white dove sail before she
+sleeps in the sand yes and how many times must the cannon balls fly before they're forever banned the answer my
+friend is blowing in the wind the answer is blowing in the wind yes and how many years can a mountain exist before it is
+washed to the sea yes and how many years can some people exist before they're allowed to be free yes and how many
+times can a man turn his head and pretend that he just doesn't see the answer my friend is blowing in the wind the
+answer is blowing in the wind yes and how many times must a man look up before he can see the sky yes and how many
+ears must one man have before he can hear people cry yes and how many deaths will it take 'till he knows that too
+many people have died the answer my friend is blowing in the wind the answer is blowing in the wind
+
+Goals:
+	1. First, you need to store the above version of the lyrics into a text file called “blowingInTheWind.txt”, which in
+		turn gets stored in a folder called “data” under your project folder.
+	2. You are going to use Linked Lists to store all these words and keep track of which word following which word
+		and how frequently. Here is a sketch what needs to be stored:
+	
+	Keyword 		Followed by Words
+	“how” 			“many”, “many”, “many”, “many”, “many”, “many”, “many”, “many”, “many”
+	“many” 			“roads”, “seas”, “times”, “years”, years”, “times”, times”, “ears”, “deaths”, “people”
+	“roads” 		“must”
+	“must” 			“a”, “a”, “the”, “a”, “one”
+	etc.
+	
+		Keywords are unique, and they are stored in master Links in a master linked list. Each new master link also
+		contains a baby linked list, which contains baby links holding the next word following that unique key word in the master
+		link, one for each occurrence throughout the text. Once a linked list is created for that keyword, no new linked list will
+		be created for that word again. For example, the first time when “how” is encountered, a master link will be created for
+		it and the word following it (“many” in this case) will be created in a baby link inserted into the newly created baby
+		linked list for that key word. After that, when the word “how” is encountered again, no new master link shall be created
+		again. Instead, the word that follows it (“many”, again in this case) will be simply inserted into its existing baby link list as
+		another link. So by now, the keyword “how” has two baby links (both containing “many” so far) inserted into its baby
+		linked list.
+	
+	3. Once the entire text body is analyzed and each unique word has its own linked list and each linked list stores all
+	the words following that word, your program will be give a random starting word, say “how”, and a number, say
+	30, and your program will automatically generate a new paragraph of 30 words, in which each word (except the
+	starting word, obviously) is picked randomly from the linked list associated with the previous word. From my
+	example above, the new text may look something like:
+		how many times must a …
+
+	4. The newly generated text should form a String. The String will be displayed on a Text Area and saved into a text
+	file called “output.txt”, which in turn will be automatically placed into a folder called output under the project
+	folder. The GUI part also needs to have a menu bar with a file chooser that allows the user to choose the text file
+	containing the above lyrics.
