@@ -1,0 +1,25 @@
+CSE218 HW1 Classes, Objects and Bags
+
+Build a program with the following three modules and for each method you write, please
+specify its big O complexity level.
+
+1. (Name Warehouse) Download the three text files attached in this assignment. They
+contain 600 girl’s names, 600 boy’s names and an unknown number of last names,
+respectively. You will build a name warehouse that will import these names into one
+single array containing 1200 name objects. Each name object will contain first name,
+last name (randomly picked from the last name text file), and gender. If you find
+yourself doing a lot of manual work while importing these names, you are doing it
+wrong. Write a Demo program to test the module.
+
+2. (Name Factory) Use the name warehouse built from the last step to create a name
+factory. The name factory will allow the user to enter a letter and a gender, it will
+display all the name objects whose first name starts with that letter for that gender. The
+output has to be sorted alphabetically and displayed in a text area on the screen AND
+a new text file stored in the project folder. The text file name has to be different each
+time so older files will not be overwritten. Write a Demo program to test the module.
+
+3. (Student Factory) Use the name factory to construct a student factory. The student
+factory will return one student object each time when a gender is provided to it. The
+student class will contain the following fields: first name, last name, gender, a unique
+id, and a random GPA between 0.0 and 4.0, inclusive. Write a Demo program to test
+the module.
