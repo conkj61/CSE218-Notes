@@ -9,9 +9,10 @@ public class IndividualStockInformation {
 	private final double low;
 	private final double close;
 	private final long volume;
+	private final int interval;
 
 	public IndividualStockInformation(Date dateOfStock, double open, double high, double low, double close,
-			long volume) {
+			long volume, int interval) {
 		super();
 		this.dateOfStock = dateOfStock;
 		this.open = open;
@@ -19,6 +20,7 @@ public class IndividualStockInformation {
 		this.low = low;
 		this.close = close;
 		this.volume = volume;
+		this.interval = interval;
 	}
 
 	public Date getDateOfStock() {
@@ -45,4 +47,7 @@ public class IndividualStockInformation {
 		return volume;
 	}
 
+	public int getInterval() {
+		return interval;
+	}
 }

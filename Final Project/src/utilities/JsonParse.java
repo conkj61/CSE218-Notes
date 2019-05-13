@@ -15,35 +15,70 @@ import model.IndividualStockInformation;
 public class JsonParse {
 	
 	public static void createStartingCompanies(HashMap<String, CompanyData> allCompanyStorage) throws JSONException, IOException, ParseException {
-		allCompanyStorage.put("NFLX", createInitialCompanyData("NFLX"));
-		allCompanyStorage.put("AMZN", createInitialCompanyData("AMZN"));
-		allCompanyStorage.put("GOOGL", createInitialCompanyData("GOOGL"));
-		allCompanyStorage.put("FB", createInitialCompanyData("FB"));
-		allCompanyStorage.put("AAPL", createInitialCompanyData("AAPL"));
+		allCompanyStorage.put("NFLX", createInitialCompanies("NFLX"));
+//		allCompanyStorage.put("AMZN", createInitialCompanies("AMZN"));
+//		allCompanyStorage.put("GOOGL", createInitialCompanies("GOOGL"));
+//		allCompanyStorage.put("FB", createInitialCompanies("FB"));
+//		allCompanyStorage.put("AAPL", createInitialCompanies("AAPL"));
 	}
 	
-	public static CompanyData createInitialCompanyData(String companyName) throws JSONException, IOException, ParseException {
+	public static CompanyData createInitialCompanies(String companyName) throws JSONException, IOException, ParseException {
 		JSONObject json = utilities.CompanyStockLookup.dailyStockInfo(companyName); //retrieve raw JSON
 		//separate metaData and chosen scope of stock data
 		JSONObject metaData = json.getJSONObject("Meta Data");
 		JSONObject timeScope = json.getJSONObject("Time Series (Daily)");
 		
-		CompanyData temp = new CompanyData(metaData.getString("2. Symbol"), metaData.getString("3. Last Refreshed"), parseAlphaData(timeScope));
+		CompanyData temp = new CompanyData(metaData.getString("2. Symbol"), metaData.getString("3. Last Refreshed"), parseAlphaData(timeScope, 1440)); //1440 mins in a day
 		return temp;
 	}
 	
-	public static HashMap<Date, IndividualStockInformation> parseAlphaData(JSONObject timeScope) throws JSONException, IOException, ParseException {
-//			JSONObject json = utilities.CompanyStockLookup.dailyStockInfo(companyName); //retrieve raw JSON
-//			
-//			//separate metaData and chosen scope of stock data
-//			JSONObject metaData = json.getJSONObject("Meta Data");
-//			JSONObject timeScope = json.getJSONObject("Time Series (Daily)");
+	public static CompanyData createDailyCompanyData(String companyName) throws JSONException, IOException, ParseException {
+		JSONObject json = utilities.CompanyStockLookup.dailyStockInfo(companyName); //retrieve raw JSON
+		CompanyData temp = null;
+		if(json.has("Note")) {
+			alerts.Alerts.timeOutAlert();
+		}
+		else {
+		if(json.has("Error Message")) {
+			alerts.Alerts.failedSearch();
+		} else {
+			alerts.Alerts.successfulSearch();
+			//separate metaData and chosen scope of stock data
+			JSONObject metaData = json.getJSONObject("Meta Data");
+			JSONObject timeScope = json.getJSONObject("Time Series (Daily)");
 			
+			temp = new CompanyData(metaData.getString("2. Symbol"), metaData.getString("3. Last Refreshed"), parseAlphaData(timeScope, 1440)); //1440 mins in a day
+			}
+		}
+		return temp;
+	}
+	
+	public static CompanyData createIntraCompanyData(String companyName, int interval) throws JSONException, IOException, ParseException {
+		JSONObject json = utilities.CompanyStockLookup.dailyStockInfo(companyName); //retrieve raw JSON
+		CompanyData temp = null;
+		if(json.has("Note")) {
+			alerts.Alerts.timeOutAlert();
+		}
+		else {
+		if(json.has("Error Message")) {
+			alerts.Alerts.failedSearch();
+		} else {
+			alerts.Alerts.successfulSearch();
+			//separate metaData and chosen scope of stock data
+			JSONObject metaData = json.getJSONObject("Meta Data");
+			JSONObject timeScope = json.getJSONObject("Time Series (Daily)");
+			
+			temp = new CompanyData(metaData.getString("2. Symbol"), metaData.getString("3. Last Refreshed"), parseAlphaData(timeScope, interval));
+			}
+		}
+		return temp;
+	}
+	
+	public static HashMap<Date, IndividualStockInformation> parseAlphaData(JSONObject timeScope, int interval) throws JSONException, IOException, ParseException {
 			HashMap<Date, IndividualStockInformation> company = new HashMap<Date, IndividualStockInformation>(timeScope.length() * 2);
 																	//initialize with double amount of data for .5 load factor
 			JSONObject stockValues = null;
 			Iterator<String> keys = timeScope.keys();
-//			int count = 0;
 			while (keys.hasNext()) {
 				String keyString = keys.next();
 				Date keyDate = utilities.ManipulateFromAlpha.createDate(keyString);
@@ -54,20 +89,9 @@ public class JsonParse {
 				double close = Double.parseDouble((String) stockValues.get("4. close"));
 				long volume = Long.parseLong((String) stockValues.get("5. volume"));
 				
-				IndividualStockInformation stock = new IndividualStockInformation(keyDate, open, high, low, close, volume);
+				IndividualStockInformation stock = new IndividualStockInformation(keyDate, open, high, low, close, volume, interval);
 				company.put(keyDate, stock);
-//				String keyvalue = keys.next();
-//				stockValues = timeScope.getJSONObject(keyvalue);
-//				System.out.println(keyvalue);
-//				
-//				System.out.println("\t open: " + stockValues.get("1. open"));
-//				System.out.println("\t high: " + stockValues.get("2. high"));
-//				System.out.println("\t low: " + stockValues.get("3. low"));
-//				System.out.println("\t close: " + stockValues.get("4. close"));
-//				System.out.println("\t volume: " + stockValues.get("5. volume"));
-//				count++;
 			}
-//			System.out.println(count);
 			return company;
 	}
 }
