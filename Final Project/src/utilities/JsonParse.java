@@ -16,10 +16,10 @@ public class JsonParse {
 	
 	public static void createStartingCompanies(HashMap<String, CompanyData> allCompanyStorage) throws JSONException, IOException, ParseException {
 		allCompanyStorage.put("NFLX", createInitialCompanies("NFLX"));
-//		allCompanyStorage.put("AMZN", createInitialCompanies("AMZN"));
-//		allCompanyStorage.put("GOOGL", createInitialCompanies("GOOGL"));
-//		allCompanyStorage.put("FB", createInitialCompanies("FB"));
-//		allCompanyStorage.put("AAPL", createInitialCompanies("AAPL"));
+		allCompanyStorage.put("AMZN", createInitialCompanies("AMZN"));
+		allCompanyStorage.put("GOOGL", createInitialCompanies("GOOGL"));
+		allCompanyStorage.put("FB", createInitialCompanies("FB"));
+		allCompanyStorage.put("AAPL", createInitialCompanies("AAPL"));
 	}
 	
 	public static CompanyData createInitialCompanies(String companyName) throws JSONException, IOException, ParseException {

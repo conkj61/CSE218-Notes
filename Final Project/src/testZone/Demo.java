@@ -16,6 +16,7 @@ import org.json.JSONObject;
 
 import model.CompanyData;
 import model.IndividualStockInformation;
+import utilities.CompanyComputations;
 import utilities.ManipulateFromAlpha;
 
 public class Demo {
@@ -28,7 +29,12 @@ public class Demo {
 		HashMap<String, CompanyData> holdAllCompanies = new HashMap<String, CompanyData>();
 		utilities.JsonParse.createStartingCompanies(holdAllCompanies);
 		
-		CompanyData test = holdAllCompanies.get("NFLX");
+//		String highPercent = CompanyComputations.avgWeekHighPercent(holdAllCompanies.get("NFLX"));
+		CompanyComputations.avgWeekHighPercent(holdAllCompanies.get("AMZN"));
+		System.out.println();
+		CompanyComputations.avgWeekLowPercent(holdAllCompanies.get("AMZN"));
+		
+		/*
 		Date earliest = utilities.CompareMapKeys.findEarliestStockDate(test);
 		Date mostRecent = utilities.CompareMapKeys.findLatestStockDate(test);
 		System.out.println(earliest);
@@ -205,6 +211,7 @@ public class Demo {
 		System.out.println("Total number of Thursdays that had trades: " + thursOccur);
 		System.out.println("Total number of Fridays that had trades: " + friOccur);
 		System.out.println("Should equal total days of: " + test.getStockData().size());
+		*/
 		
 		
 //		HashMap<Date, IndividualStockInformation> lowKeySearch = test.getStockData();
