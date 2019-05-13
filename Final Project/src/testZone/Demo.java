@@ -30,18 +30,18 @@ public class Demo {
 		utilities.JsonParse.createStartingCompanies(holdAllCompanies);
 		
 //		String highPercent = CompanyComputations.avgWeekHighPercent(holdAllCompanies.get("NFLX"));
-//		CompanyComputations.avgWeekHighPercent(holdAllCompanies.get("NFLX"));
-//		System.out.println();
+		CompanyComputations.avgWeekHighPercent(holdAllCompanies.get("NFLX"));
+		System.out.println();
 		CompanyComputations.avgWeekLowPercent(holdAllCompanies.get("NFLX"));
 		System.out.println();
 		System.out.println();
-//		CompanyComputations.avgWeekHighPercent(holdAllCompanies.get("AMZN"));
-//		System.out.println();
+		CompanyComputations.avgWeekHighPercent(holdAllCompanies.get("AMZN"));
+		System.out.println();
 		CompanyComputations.avgWeekLowPercent(holdAllCompanies.get("AMZN"));
 		System.out.println();
 		System.out.println();
-//		CompanyComputations.avgWeekHighPercent(holdAllCompanies.get("GOOGL"));
-//		System.out.println();
+		CompanyComputations.avgWeekHighPercent(holdAllCompanies.get("GOOGL"));
+		System.out.println();
 		CompanyComputations.avgWeekLowPercent(holdAllCompanies.get("GOOGL"));
 		
 		/*
