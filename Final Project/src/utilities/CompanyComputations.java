@@ -197,8 +197,8 @@ public class CompanyComputations {
 				}
 			}
 			case 6: {
+				weekCount++;
 				if (companyInQuestion.getStockData().containsKey(earliest)) {
-					weekCount++;
 					friOccur++;
 					friWeekLow = companyInQuestion.getStockData().get(earliest).getLow();
 					double lowest = getLowDayOfWeek(monWeekLow, tuesWeekLow, wedWeekLow, thursWeekLow, friWeekLow);
@@ -220,7 +220,6 @@ public class CompanyComputations {
 					monWeekLow = tuesWeekLow = wedWeekLow = thursWeekLow = friWeekLow = 0.0;
 					break;
 				} else {
-					weekCount++;
 					double lowest = getLowDayOfWeek(monWeekLow, tuesWeekLow, wedWeekLow, thursWeekLow, friWeekLow);
 
 					if (lowest == monWeekLow && monWeekLow != 0) {
