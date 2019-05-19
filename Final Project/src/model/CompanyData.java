@@ -12,7 +12,7 @@ public class CompanyData {
 	public CompanyData(String stockName, String lastRefresh, HashMap<Date, IndividualStockInformation> stockData) {
 		super();
 		this.stockName = stockName;
-		this.lastRefresh = "Last Refreshed: " + lastRefresh;
+		this.lastRefresh = lastRefresh;
 		this.stockData = stockData;
 	}
 

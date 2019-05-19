@@ -29,20 +29,28 @@ public class Demo {
 		HashMap<String, CompanyData> holdAllCompanies = new HashMap<String, CompanyData>();
 		utilities.JsonParse.createStartingCompanies(holdAllCompanies);
 		
+//		System.out.println(279);
+//		System.out.println(1116);
+//		System.out.println((double)279 / 1116);
+		
 //		String highPercent = CompanyComputations.avgWeekHighPercent(holdAllCompanies.get("NFLX"));
-		CompanyComputations.avgWeekHighPercent(holdAllCompanies.get("NFLX"));
-		System.out.println();
-		CompanyComputations.avgWeekLowPercent(holdAllCompanies.get("NFLX"));
-		System.out.println();
-		System.out.println();
-		CompanyComputations.avgWeekHighPercent(holdAllCompanies.get("AMZN"));
-		System.out.println();
-		CompanyComputations.avgWeekLowPercent(holdAllCompanies.get("AMZN"));
+		String test =CompanyComputations.avgWeekLowPercent(holdAllCompanies.get("NFLX"));
+//		String test = CompanyComputations.avgWeekHighPercent(holdAllCompanies.get("NFLX"));
+		System.out.println(test);
 		System.out.println();
 		System.out.println();
-		CompanyComputations.avgWeekHighPercent(holdAllCompanies.get("GOOGL"));
+//		System.out.println();
+//		System.out.println();
+//		test = CompanyComputations.avgWeekHighPercent(holdAllCompanies.get("AMZN"));
+		test = CompanyComputations.avgWeekLowPercent(holdAllCompanies.get("AMZN"));
+		System.out.println(test);
 		System.out.println();
-		CompanyComputations.avgWeekLowPercent(holdAllCompanies.get("GOOGL"));
+		System.out.println();
+//		System.out.println();
+//		System.out.println();
+//		test = CompanyComputations.avgWeekHighPercent(holdAllCompanies.get("GOOGL"));
+		test = CompanyComputations.avgWeekLowPercent(holdAllCompanies.get("GOOGL"));
+		System.out.println(test);
 		
 		/*
 		Date earliest = utilities.CompareMapKeys.findEarliestStockDate(test);

@@ -38,7 +38,7 @@
             <Label text="Time Frame:" wrapText="true" GridPane.halignment="CENTER" GridPane.rowIndex="2" />
             <Label fx:id="timeFrameLbl" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="2" />
             <Label text="Opening Price:" GridPane.halignment="CENTER" GridPane.rowIndex="4" />
-            <Label fx:id="lastRefreshLabel" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+            <Label fx:id="lastRefreshLbl" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="3" />
             <Label text="Closing Price:" GridPane.halignment="CENTER" GridPane.rowIndex="5" />
             <Label fx:id="openingLbl" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="4" />
             <Label text="High Price:" GridPane.halignment="CENTER" GridPane.rowIndex="6" />
@@ -63,10 +63,8 @@
             <Label fx:id="amountTradedLbl" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="8" />
             <Label text="Stock Date:" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
             <Label fx:id="stockDateLbl" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-            <Label text="Typical Average High:" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="6" />
-            <Label fx:id="avgHighLbl" text="Label" GridPane.columnIndex="3" GridPane.rowIndex="6" />
-            <Label text="Typical Average Low:" GridPane.columnIndex="4" GridPane.halignment="CENTER" GridPane.rowIndex="6" />
-            <Label fx:id="avgLowLbl" text="Label" GridPane.columnIndex="5" GridPane.rowIndex="6" />
+            <Label fx:id="avgHighLbl" text="Label" wrapText="true" GridPane.columnIndex="2" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="6" />
+            <Label fx:id="avgLowLbl" text="Label" wrapText="true" GridPane.columnIndex="4" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="6" />
          </children>
       </GridPane>
    </children>

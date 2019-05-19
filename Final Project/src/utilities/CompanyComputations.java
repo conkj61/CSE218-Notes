@@ -11,17 +11,15 @@ public class CompanyComputations {
 	private static Calendar c;
 	private static int dayOfWeek;
 	private static int weekCount;
-	private static int monOccur, tuesOccur, wedOccur, thursOccur, friOccur;
 	private static int monHighCount, tuesHighCount, wedHighCount, thursHighCount, friHighCount, monLowCount, tuesLowCount, wedLowCount, thursLowCount, friLowCount;
 	private static double monWeekHigh, tuesWeekHigh, wedWeekHigh, thursWeekHigh, friWeekHigh;
 	private static double monWeekLow, tuesWeekLow, wedWeekLow, thursWeekLow, friWeekLow;
 
-	public static void avgWeekHighPercent(CompanyData companyInQuestion) {
+	public static String avgWeekHighPercent(CompanyData companyInQuestion) {
 		earliest = utilities.CompareMapKeys.findEarliestStockDate(companyInQuestion);
 		mostRecent = utilities.CompareMapKeys.findLatestStockDate(companyInQuestion);
 		c = Calendar.getInstance();
 		
-		monOccur = tuesOccur = wedOccur = thursOccur = friOccur = 0;
 		monHighCount = tuesHighCount = wedHighCount = thursHighCount = friHighCount = 0;
 		weekCount = 0;
 
@@ -32,7 +30,6 @@ public class CompanyComputations {
 			switch (dayOfWeek) {
 			case 2: {
 				if (companyInQuestion.getStockData().containsKey(earliest)) {
-					monOccur++;
 					monWeekHigh = companyInQuestion.getStockData().get(earliest).getHigh();
 					incrementDate(1);
 					break;
@@ -43,7 +40,6 @@ public class CompanyComputations {
 			}
 			case 3: {
 				if (companyInQuestion.getStockData().containsKey(earliest)) {
-					tuesOccur++;
 					tuesWeekHigh = companyInQuestion.getStockData().get(earliest).getHigh();
 					incrementDate(1);
 					break;
@@ -54,7 +50,6 @@ public class CompanyComputations {
 			}
 			case 4: {
 				if (companyInQuestion.getStockData().containsKey(earliest)) {
-					wedOccur++;
 					wedWeekHigh = companyInQuestion.getStockData().get(earliest).getHigh();
 					incrementDate(1);
 					break;
@@ -65,7 +60,6 @@ public class CompanyComputations {
 			}
 			case 5: {
 				if (companyInQuestion.getStockData().containsKey(earliest)) {
-					thursOccur++;
 					thursWeekHigh = companyInQuestion.getStockData().get(earliest).getHigh();
 					incrementDate(1);
 					break;
@@ -77,7 +71,6 @@ public class CompanyComputations {
 			case 6: {
 				if (companyInQuestion.getStockData().containsKey(earliest)) {
 					weekCount++;
-					friOccur++;
 					friWeekHigh = companyInQuestion.getStockData().get(earliest).getHigh();
 					double highest = getHighDayOfWeek(monWeekHigh, tuesWeekHigh, wedWeekHigh, thursWeekHigh, friWeekHigh);
 					
@@ -100,28 +93,41 @@ public class CompanyComputations {
 			default: break;
 			}
 		}
-		System.out.println("Out of " + weekCount + " weeks of data:");
-		System.out.println("monHigh count = " + monHighCount + " which occurs " + Math.round(monHighCount * 100.0 / weekCount) +"% of weeks");
-		System.out.println("tuesHigh count = " + tuesHighCount + " which occurs " + Math.round(tuesHighCount * 100.0 / weekCount) +"% of weeks");
-		System.out.println("wedHigh count = " + wedHighCount + " which occurs " + Math.round(wedHighCount * 100.0 / weekCount) +"% of weeks");
-		System.out.println("thursHigh count = " + thursHighCount + " which occurs " + Math.round(thursHighCount * 100.0 / weekCount) +"% of weeks");
-		System.out.println("friHigh count = " + friHighCount + " which occurs " + Math.round(friHighCount * 100.0 / weekCount) +"% of weeks");
-		System.out.println("Weeks unaccounted for: " + (weekCount - monHighCount - tuesHighCount - wedHighCount - thursHighCount - friHighCount));
-		System.out.println("Total number of Mondays that had trades: " + monOccur);
-		System.out.println("Total number of Tuesdays that had trades: " + tuesOccur);
-		System.out.println("Total number of Wednesdays that had trades: " + wedOccur);
-		System.out.println("Total number of Thursdays that had trades: " + thursOccur);
-		System.out.println("Total number of Fridays that had trades: " + friOccur);
-		System.out.println("Should equal total days of: " + companyInQuestion.getStockData().size());
-		System.out.println("Days unaccounted for: " + (companyInQuestion.getStockData().size() - (monOccur + tuesOccur + wedOccur + thursOccur + friOccur)));
+
+		String highPercent = "High day occurs usually on "  + getHighDay() + "s at " + Math.round(highCounter() * 100.0) + "% of all weeks";
+		return highPercent;
 	}
 
-	public static void avgWeekLowPercent(CompanyData companyInQuestion) {
+	private static String getHighDay() {
+		String day = null;
+		if(highCounter() == (double)monHighCount / weekCount) {
+			day = "Monday";
+		} else if(highCounter() == (double)tuesHighCount / weekCount) {
+			day = "Tuesday";
+		} else if(highCounter() == (double)wedHighCount / weekCount) {
+			day = "Wednesday";
+		} else if(highCounter() == (double)thursHighCount / weekCount) {
+			day = "Thursday";
+		} else if(highCounter() == (double)friHighCount / weekCount) {
+			day = "Friday";
+		}
+		return day;
+	}
+	
+	private static double highCounter() {
+		double monPer = (double)monHighCount / weekCount;
+		double tuesPer = (double)tuesHighCount / weekCount;
+		double wedPer = (double)wedHighCount / weekCount;
+		double thurPer = (double)thursHighCount / weekCount;
+		double friPer = (double)friHighCount / weekCount;
+		return Math.max(monPer, Math.max(tuesPer, Math.max(wedPer, Math.max(thurPer, friPer))));
+	}
+
+	public static String avgWeekLowPercent(CompanyData companyInQuestion) {
 		earliest = utilities.CompareMapKeys.findEarliestStockDate(companyInQuestion);
 		mostRecent = utilities.CompareMapKeys.findLatestStockDate(companyInQuestion);
 		c = Calendar.getInstance();
 		
-		monOccur = tuesOccur = wedOccur = thursOccur = friOccur = 0;
 		monLowCount = tuesLowCount = wedLowCount = thursLowCount = friLowCount = 0;
 		weekCount = 0;
 
@@ -132,7 +138,6 @@ public class CompanyComputations {
 			switch (dayOfWeek) {
 			case 2: {
 				if (companyInQuestion.getStockData().containsKey(earliest)) {
-					monOccur++;
 					monWeekLow = companyInQuestion.getStockData().get(earliest).getLow();
 					incrementDate(1);
 					break;
@@ -143,7 +148,6 @@ public class CompanyComputations {
 			}
 			case 3: {
 				if (companyInQuestion.getStockData().containsKey(earliest)) {
-					tuesOccur++;
 					tuesWeekLow = companyInQuestion.getStockData().get(earliest).getLow();
 					incrementDate(1);
 					break;
@@ -154,7 +158,6 @@ public class CompanyComputations {
 			}
 			case 4: {
 				if (companyInQuestion.getStockData().containsKey(earliest)) {
-					wedOccur++;
 					wedWeekLow = companyInQuestion.getStockData().get(earliest).getLow();
 					incrementDate(1);
 					break;
@@ -165,7 +168,6 @@ public class CompanyComputations {
 			}
 			case 5: {
 				if (companyInQuestion.getStockData().containsKey(earliest)) {
-					thursOccur++;
 					thursWeekLow = companyInQuestion.getStockData().get(earliest).getLow();
 					incrementDate(1);
 					break;
@@ -177,7 +179,6 @@ public class CompanyComputations {
 			case 6: {
 				weekCount++;
 				if (companyInQuestion.getStockData().containsKey(earliest)) {
-					friOccur++;
 					friWeekLow = companyInQuestion.getStockData().get(earliest).getLow();
 					double lowest = getLowDayOfWeek(monWeekLow, tuesWeekLow, wedWeekLow, thursWeekLow, friWeekLow);
 
@@ -199,20 +200,34 @@ public class CompanyComputations {
 			default: break;
 			}
 		}
-		System.out.println("Out of " + weekCount + " weeks of data:");
-		System.out.println("monLow count = " + monLowCount + " which occurs " + Math.round(monLowCount * 100.0 / weekCount) +"% of weeks");
-		System.out.println("tuesLow count = " + tuesLowCount + " which occurs " + Math.round(tuesLowCount * 100.0 / weekCount) +"% of weeks");
-		System.out.println("wedLow count = " + wedLowCount + " which occurs " + Math.round(wedLowCount * 100.0 / weekCount) +"% of weeks");
-		System.out.println("thursLow count = " + thursLowCount + " which occurs " + Math.round(thursLowCount * 100.0 / weekCount) +"% of weeks");
-		System.out.println("friLow count = " + friLowCount + " which occurs " + Math.round(friLowCount * 100.0 / weekCount) +"% of weeks");
-		System.out.println("Weeks unaccounted for: " + (weekCount - monLowCount - tuesLowCount - wedLowCount - thursLowCount - friLowCount));
-		System.out.println("Total number of Mondays that had trades: " + monOccur);
-		System.out.println("Total number of Tuesdays that had trades: " + tuesOccur);
-		System.out.println("Total number of Wednesdays that had trades: " + wedOccur);
-		System.out.println("Total number of Thursdays that had trades: " + thursOccur);
-		System.out.println("Total number of Fridays that had trades: " + friOccur);
-		System.out.println("Should equal total days of: " + companyInQuestion.getStockData().size());
-		System.out.println("Days unaccounted for: " + (companyInQuestion.getStockData().size() - (monOccur + tuesOccur + wedOccur + thursOccur + friOccur)));
+
+		String lowPercent = "Low day usually occurs on "  + getLowDay() + "s at " + Math.round(lowCounter() * 100.0) + "% of all weeks";
+		return lowPercent;
+	}
+
+	private static String getLowDay() {
+		String day = null;
+		if(lowCounter() == (double)monLowCount / weekCount) {
+			day = "Monday";
+		} else if(lowCounter() == (double)tuesLowCount / weekCount) {
+			day = "Tuesday";
+		} else if(lowCounter() == (double)wedLowCount / weekCount) {
+			day = "Wednesday";
+		} else if(lowCounter() == (double)thursLowCount / weekCount) {
+			day = "Thursday";
+		} else if(lowCounter() == (double)friLowCount / weekCount) {
+			day = "Friday";
+		}
+		return day;
+	}
+	
+	private static double lowCounter() {
+		double monPer = (double)monLowCount / weekCount;
+		double tuesPer = (double)tuesLowCount / weekCount;
+		double wedPer = (double)wedLowCount / weekCount;
+		double thurPer = (double)thursLowCount / weekCount;
+		double friPer = (double)friLowCount / weekCount;
+		return Math.min(monPer, Math.min(tuesPer, Math.min(wedPer, Math.min(thurPer, friPer))));
 	}
 	
 	private static void incrementLowCount(double compareValue, double monVar, double tuesVar, double wedVar, double thursVar, double friVar) {
