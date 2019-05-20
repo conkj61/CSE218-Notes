@@ -201,7 +201,7 @@ public class CompanyComputations {
 			}
 		}
 
-		String lowPercent = "Low day usually occurs on "  + getLowDay() + "s at " + Math.round(lowCounter() * 100.0) + "% of all weeks";
+		String lowPercent = "Low day usually occurs on "  + getLowDay() + "s at " + Math.round(lowCounter() * 100.0) + "% of weeks";
 		return lowPercent;
 	}
 
@@ -227,7 +227,7 @@ public class CompanyComputations {
 		double wedPer = (double)wedLowCount / weekCount;
 		double thurPer = (double)thursLowCount / weekCount;
 		double friPer = (double)friLowCount / weekCount;
-		return Math.min(monPer, Math.min(tuesPer, Math.min(wedPer, Math.min(thurPer, friPer))));
+		return Math.max(monPer, Math.max(tuesPer, Math.max(wedPer, Math.max(thurPer, friPer))));
 	}
 	
 	private static void incrementLowCount(double compareValue, double monVar, double tuesVar, double wedVar, double thursVar, double friVar) {

@@ -109,7 +109,7 @@ public class MainViewController {
 		}
 		if (date != null) {
 //			selectedCompany.showTestDate(date);
-			changeView(event);
+			changeView(event, date);
 		} else {
 			// handle no available date
 //	}
@@ -118,7 +118,7 @@ public class MainViewController {
 		}
 	}
 	
-	private void changeView(ActionEvent event) throws IOException {
+	private void changeView(ActionEvent event, Date dateFromButton) throws IOException {
 		// TODO Auto-generated method stub
 		FXMLLoader loader = new FXMLLoader();
         loader.setLocation(getClass().getResource("/view/StockView.fxml"));
@@ -127,19 +127,7 @@ public class MainViewController {
         
         StockViewController controller = loader.getController();
         controller.setMainApp(this.mainApp);
-        controller.loadData(selectedCompany, Date.from(selectedDate.atStartOfDay(ZoneId.systemDefault()).toInstant()), "Daily");
-//        controller.populateComboBox();
-//		FXMLLoader loader = new FXMLLoader();
-//		loader.setLocation(getClass().getResource("/view/StockView.fxml"));
-//		loader.load();
-//		Parent main = loader.load();
-//		Scene scene = new Scene (main);
-//		Stage primary = (Stage) ((Node)event.getSource()).getScene().getWindow();
-//		Scene scene = loadButton.getScene();
-//		Window window = scene.getWindow();
-//		Stage stage = (Stage) loadButton.getScene().getWindow();
-//		Scene scene = new Scene(loader.getRoot());
-//		stage.setScene(scene);
+        controller.loadData(selectedCompany, dateFromButton, "Daily");
 	}
 
 	public void handleSearchBtn(ActionEvent event) {
@@ -150,8 +138,6 @@ public class MainViewController {
 		//current problems include a failed search being added to combo box and printing an error from trying to show company data from failed search
 		try {
 			mainApp.getHoldAllCompanies().put(searchToTest, utilities.JsonParse.createDailyCompanyData(searchToTest));
-//			populateComboBox();
-			mainApp.getHoldAllCompanies().get(searchToTest).showTestDate(date);
 		} catch (JSONException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
@@ -161,6 +147,15 @@ public class MainViewController {
 		} catch (ParseException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
+		}
+		if (mainApp.getHoldAllCompanies().containsKey(searchToTest)) {
+			selectedCompany = mainApp.getHoldAllCompanies().get(searchToTest);
+			try {
+				changeView(event, date);
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 //		Stage parent = (Stage) ((Node)event.getSource()).getScene().getWindow();
 //		System.out.println("test2");

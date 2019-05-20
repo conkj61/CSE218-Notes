@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.chart.CategoryAxis?>
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.chart.LineChart?>
 <?import javafx.scene.chart.NumberAxis?>
 <?import javafx.scene.control.Button?>
@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
 
-<AnchorPane prefHeight="501.0" prefWidth="734.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.StockViewController">
+<AnchorPane prefHeight="501.0" prefWidth="734.0" xmlns="http://javafx.com/javafx/" xmlns:fx="http://javafx.com/fxml/" fx:controller="controllers.StockViewController">
    <children>
       <GridPane layoutY="-124.0" prefHeight="266.0" prefWidth="291.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <columnConstraints>
@@ -45,12 +45,12 @@
             <Label fx:id="closingLbl" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="5" />
             <Label text="Low Price:" GridPane.halignment="CENTER" GridPane.rowIndex="7" />
             <Label fx:id="highPriceLbl" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="6" />
-            <LineChart GridPane.columnIndex="2" GridPane.columnSpan="4" GridPane.rowSpan="6">
+            <LineChart fx:id="stockChart" GridPane.columnIndex="2" GridPane.columnSpan="4" GridPane.rowSpan="6">
               <xAxis>
-                <CategoryAxis side="BOTTOM" />
+                <NumberAxis side="BOTTOM" fx:id="xAxis" />
               </xAxis>
               <yAxis>
-                <NumberAxis side="LEFT" />
+                <NumberAxis fx:id="yAxis" side="LEFT" />
               </yAxis>
             </LineChart>
             <Label text="Switch Time Frame To:" GridPane.columnIndex="2" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="7" />
@@ -63,8 +63,14 @@
             <Label fx:id="amountTradedLbl" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="8" />
             <Label text="Stock Date:" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
             <Label fx:id="stockDateLbl" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-            <Label fx:id="avgHighLbl" text="Label" wrapText="true" GridPane.columnIndex="2" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="6" />
-            <Label fx:id="avgLowLbl" text="Label" wrapText="true" GridPane.columnIndex="4" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="6" />
+            <Label fx:id="avgHighLbl" text="Label" wrapText="true" GridPane.columnIndex="2" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="6">
+               <GridPane.margin>
+                  <Insets left="15.0" right="15.0" />
+               </GridPane.margin></Label>
+            <Label fx:id="avgLowLbl" text="Label" wrapText="true" GridPane.columnIndex="4" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="6">
+               <GridPane.margin>
+                  <Insets left="15.0" right="15.0" />
+               </GridPane.margin></Label>
          </children>
       </GridPane>
    </children>

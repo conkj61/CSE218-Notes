@@ -1,8 +1,4 @@
-/Assignment
-/alerts/
-/application/
-/controllers/
-/model/
-/testZone/
-/utilities/
 /view/
+/utilities/
+/controllers/
+/testZone/
