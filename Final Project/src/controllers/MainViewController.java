@@ -5,7 +5,6 @@ import java.text.ParseException;
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.Date;
-import java.util.HashMap;
 
 import org.json.JSONException;
 
@@ -15,17 +14,12 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Node;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
-import javafx.stage.Stage;
-import javafx.stage.Window;
 import model.CompanyData;
 
 public class MainViewController {
@@ -156,7 +150,7 @@ public class MainViewController {
 		//current problems include a failed search being added to combo box and printing an error from trying to show company data from failed search
 		try {
 			mainApp.getHoldAllCompanies().put(searchToTest, utilities.JsonParse.createDailyCompanyData(searchToTest));
-			populateComboBox();
+//			populateComboBox();
 			mainApp.getHoldAllCompanies().get(searchToTest).showTestDate(date);
 		} catch (JSONException e1) {
 			// TODO Auto-generated catch block

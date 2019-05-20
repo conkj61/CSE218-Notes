@@ -35,20 +35,21 @@ public class Demo {
 		
 //		String highPercent = CompanyComputations.avgWeekHighPercent(holdAllCompanies.get("NFLX"));
 		String test =CompanyComputations.avgWeekLowPercent(holdAllCompanies.get("NFLX"));
-//		String test = CompanyComputations.avgWeekHighPercent(holdAllCompanies.get("NFLX"));
+		System.out.println(test);
+		test = CompanyComputations.avgWeekHighPercent(holdAllCompanies.get("NFLX"));
 		System.out.println(test);
 		System.out.println();
-		System.out.println();
 //		System.out.println();
 //		System.out.println();
-//		test = CompanyComputations.avgWeekHighPercent(holdAllCompanies.get("AMZN"));
+		test = CompanyComputations.avgWeekHighPercent(holdAllCompanies.get("AMZN"));
+		System.out.println(test);
 		test = CompanyComputations.avgWeekLowPercent(holdAllCompanies.get("AMZN"));
 		System.out.println(test);
 		System.out.println();
-		System.out.println();
 //		System.out.println();
 //		System.out.println();
-//		test = CompanyComputations.avgWeekHighPercent(holdAllCompanies.get("GOOGL"));
+		test = CompanyComputations.avgWeekHighPercent(holdAllCompanies.get("GOOGL"));
+		System.out.println(test);
 		test = CompanyComputations.avgWeekLowPercent(holdAllCompanies.get("GOOGL"));
 		System.out.println(test);
 		

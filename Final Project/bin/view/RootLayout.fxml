@@ -8,7 +8,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane prefHeight="500.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<BorderPane prefHeight="500.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.HomeController">
    <top>
       <GridPane prefHeight="29.0" prefWidth="800.0" BorderPane.alignment="CENTER">
         <columnConstraints>
@@ -19,7 +19,7 @@
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="79.0" text="Home" GridPane.halignment="CENTER" />
+            <Button fx:id="backBtn" mnemonicParsing="false" onAction="#handleNewBtn" prefHeight="25.0" prefWidth="79.0" text="Load New" GridPane.halignment="CENTER" />
             <Label alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" text="Historical Stock Analysis" GridPane.columnIndex="1">
                <font>
                   <Font name="System Bold Italic" size="14.0" />

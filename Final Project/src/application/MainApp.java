@@ -6,6 +6,7 @@ import java.util.HashMap;
 
 import org.json.JSONException;
 
+import controllers.HomeController;
 import controllers.MainViewController;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -61,6 +62,9 @@ public class MainApp extends Application {
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(getClass().getResource("/view/RootLayout.fxml"));
             root = (BorderPane) loader.load();
+            
+            HomeController controller = loader.getController();
+            controller.setMainApp(this);
             
             // Show the scene containing the root layout.
             Scene scene = new Scene(root);
