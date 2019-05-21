@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
 
-<AnchorPane prefHeight="501.0" prefWidth="734.0" xmlns="http://javafx.com/javafx/" xmlns:fx="http://javafx.com/fxml/" fx:controller="controllers.StockViewController">
+<AnchorPane prefHeight="501.0" prefWidth="734.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.StockViewController">
    <children>
       <GridPane layoutY="-124.0" prefHeight="266.0" prefWidth="291.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <columnConstraints>
@@ -28,46 +28,47 @@
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-          <RowConstraints minHeight="10.0" percentHeight="8.0" prefHeight="30.0" vgrow="SOMETIMES" />
-          <RowConstraints minHeight="10.0" percentHeight="8.0" prefHeight="30.0" vgrow="SOMETIMES" />
-          <RowConstraints minHeight="10.0" percentHeight="8.0" prefHeight="30.0" vgrow="SOMETIMES" />
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+          <RowConstraints minHeight="10.0" percentHeight="9.0" prefHeight="30.0" vgrow="SOMETIMES" />
+          <RowConstraints minHeight="10.0" percentHeight="9.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
             <Label text="Stock Name:" wrapText="true" GridPane.halignment="CENTER" />
             <Label fx:id="stockNameLbl" text="Label" GridPane.columnIndex="1" />
             <Label text="Time Frame:" wrapText="true" GridPane.halignment="CENTER" GridPane.rowIndex="2" />
             <Label fx:id="timeFrameLbl" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-            <Label text="Opening Price:" GridPane.halignment="CENTER" GridPane.rowIndex="4" />
+            <Label fx:id="openLbl" text="Opening Price:" wrapText="true" GridPane.halignment="CENTER" GridPane.rowIndex="4" />
             <Label fx:id="lastRefreshLbl" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-            <Label text="Closing Price:" GridPane.halignment="CENTER" GridPane.rowIndex="5" />
-            <Label fx:id="openingLbl" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="4" />
-            <Label text="High Price:" GridPane.halignment="CENTER" GridPane.rowIndex="6" />
-            <Label fx:id="closingLbl" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="5" />
-            <Label text="Low Price:" GridPane.halignment="CENTER" GridPane.rowIndex="7" />
-            <Label fx:id="highPriceLbl" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="6" />
-            <LineChart fx:id="stockChart" GridPane.columnIndex="2" GridPane.columnSpan="4" GridPane.rowSpan="6">
+            <Label fx:id="closingLbl" text="Closing Price:" wrapText="true" GridPane.halignment="CENTER" GridPane.rowIndex="5" />
+            <Label fx:id="openingPrice" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+            <Label fx:id="highLbl" text="High Price:" wrapText="true" GridPane.halignment="CENTER" GridPane.rowIndex="6" />
+            <Label fx:id="closingPrice" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+            <Label fx:id="lowLbl" text="Low Price:" wrapText="true" GridPane.halignment="CENTER" GridPane.rowIndex="7" />
+            <Label fx:id="highPrice" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+            <LineChart fx:id="stockChart" GridPane.columnIndex="2" GridPane.columnSpan="4" GridPane.rowSpan="7">
               <xAxis>
                 <NumberAxis side="BOTTOM" fx:id="xAxis" />
               </xAxis>
               <yAxis>
                 <NumberAxis fx:id="yAxis" side="LEFT" />
               </yAxis>
+               <GridPane.margin>
+                  <Insets right="5.0" />
+               </GridPane.margin>
             </LineChart>
-            <Label text="Switch Time Frame To:" GridPane.columnIndex="2" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="7" />
-            <Button mnemonicParsing="false" text="Button" GridPane.columnIndex="2" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="8" />
-            <Button mnemonicParsing="false" text="Button" GridPane.columnIndex="4" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="7" />
-            <Button mnemonicParsing="false" text="Button" GridPane.columnIndex="4" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="8" />
+            <Label fx:id="updateLbl" text="Manually Update Price" GridPane.columnIndex="3" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="8" />
+            <Button fx:id="update" mnemonicParsing="false" onAction="#handleUpdateBtn" text="Update" GridPane.columnIndex="5" GridPane.halignment="CENTER" GridPane.rowIndex="8" />
             <Label text="Last Data Refresh:" GridPane.halignment="CENTER" GridPane.rowIndex="3" />
-            <Label text="Amount Traded:" GridPane.halignment="CENTER" GridPane.rowIndex="8" />
-            <Label fx:id="lowPriceLbl" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="7" />
-            <Label fx:id="amountTradedLbl" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="8" />
-            <Label text="Stock Date:" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
-            <Label fx:id="stockDateLbl" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-            <Label fx:id="avgHighLbl" text="Label" wrapText="true" GridPane.columnIndex="2" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="6">
+            <Label fx:id="amountLbl" text="Amount Traded:" wrapText="true" GridPane.halignment="CENTER" GridPane.rowIndex="8" />
+            <Label fx:id="lowPrice" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="7" />
+            <Label fx:id="amountTraded" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="8" />
+            <Label fx:id="dateLbl" text="Stock Date:" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
+            <Label fx:id="stockDate" text="Label" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <Label fx:id="avgHighLbl" text="Label" wrapText="true" GridPane.columnIndex="2" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="7">
                <GridPane.margin>
                   <Insets left="15.0" right="15.0" />
                </GridPane.margin></Label>
-            <Label fx:id="avgLowLbl" text="Label" wrapText="true" GridPane.columnIndex="4" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="6">
+            <Label fx:id="avgLowLbl" text="Label" wrapText="true" GridPane.columnIndex="4" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="7">
                <GridPane.margin>
                   <Insets left="15.0" right="15.0" />
                </GridPane.margin></Label>

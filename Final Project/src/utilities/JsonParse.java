@@ -33,23 +33,13 @@ public class JsonParse {
 	}
 	
 	public static CompanyData createDailyCompanyData(String companyName) throws JSONException, IOException, ParseException {
-		JSONObject json = utilities.CompanyStockLookup.dailyStockInfo(companyName); //retrieve raw JSON
+		JSONObject json = utilities.CompanyStockLookup.dailyStockInfo(companyName); // retrieve raw JSON
 		CompanyData temp = null;
-		if(json.has("Note")) {
-			alerts.Alerts.timeOutAlert();
-		}
-		else {
-		if(json.has("Error Message")) {
-			alerts.Alerts.failedSearch();
-		} else {
-			alerts.Alerts.successfulSearch();
-			//separate metaData and chosen scope of stock data
-			JSONObject metaData = json.getJSONObject("Meta Data");
-			JSONObject timeScope = json.getJSONObject("Time Series (Daily)");
-			
-			temp = new CompanyData(metaData.getString("2. Symbol"), metaData.getString("3. Last Refreshed"), parseAlphaData(timeScope, 1440)); //1440 mins in a day
-			}
-		}
+		JSONObject metaData = json.getJSONObject("Meta Data");
+		JSONObject timeScope = json.getJSONObject("Time Series (Daily)");
+
+		temp = new CompanyData(metaData.getString("2. Symbol"), metaData.getString("3. Last Refreshed"),
+				parseAlphaData(timeScope, 1440)); // 1440 mins in a day
 		return temp;
 	}
 	
@@ -93,10 +83,5 @@ public class JsonParse {
 				company.put(keyDate, stock);
 			}
 			return company;
-	}
-	
-	public static boolean testRealCompany() {
-		boolean real;
-		return false;
 	}
 }

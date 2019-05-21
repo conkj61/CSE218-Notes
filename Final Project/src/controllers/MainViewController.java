@@ -2,8 +2,10 @@ package controllers;
 
 import java.io.IOException;
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.ZoneId;
+import java.util.Calendar;
 import java.util.Date;
 
 import org.json.JSONException;
@@ -29,7 +31,9 @@ public class MainViewController {
 	private ComboBox<String> loadedBox;
 	private ObservableList<String> boxChoices = FXCollections.observableArrayList();
 	@FXML
-	private DatePicker loadedDatePicker;
+	private DatePicker loadedDatePickerFrom;
+	@FXML
+	private DatePicker loadedDatePickerTo;
 	@FXML
 	private Button loadButton;
 
@@ -39,131 +43,186 @@ public class MainViewController {
 	private TextField searchNewStock;
 	private String searchToTest;
 	@FXML
-	private DatePicker searchDatePicker;
+	private DatePicker searchDatePickerFrom;
+	@FXML
+	private DatePicker searchDatePickerTo;
 	@FXML
 	private Button searchButton;
 	
 	private CompanyData selectedCompany;
 	private LocalDate selectedDate;
 	private LocalDate selectedDate2;
+	private Date date;
+	private Date date2;
 	
 	private MainApp mainApp;
+
+	public MainViewController() {//HashMap<String, CompanyData> allCompanies) {
+	}
 	
 	@FXML
 	public void initialize() {
-//		
-//		loadedBox.setOnAction(e -> {
-//			selectedCompany = mainApp.getHoldAllCompanies().get(loadedBox.getSelectionModel().getSelectedItem());
-//		});
-//		
-//		loadedDatePicker.setOnAction(e -> {
-//			selectedDate = loadedDatePicker.getValue();
-//		});
-//		loadButton.setOnAction(e -> { //set button function for existing data
-//			Date date = null;
-//			try {
-//				date = Date.from(selectedDate.atStartOfDay(ZoneId.systemDefault()).toInstant());
-//			} catch (Exception e1) {
-//				alerts.Alerts.dateInputError();
-//			}
-//			if(date != null) {
-//				selectedCompany.showTestDate(date);
-//			} else {
-//				//handle no available date
-//			}
-////			System.out.println("you are a noob");
-//		});
-//		
-//		searchButton.setOnAction(e -> { //button function to add new data
-//			setSearchString(searchNewStock.getText());
-//			LocalDate selectedDate2 = searchDatePicker.getValue();
-//			Date date = Date.from(selectedDate2.atStartOfDay(ZoneId.systemDefault()).toInstant());
-//			
-//			//current problems include a failed search being added to combo box and printing an error from trying to show company data from failed search
-//			try {
-//				mainApp.getHoldAllCompanies().put(searchToTest, utilities.JsonParse.createDailyCompanyData(searchToTest));
-//				populateComboBox();
-//				mainApp.getHoldAllCompanies().get(searchToTest).showTestDate(date);
-//			} catch (JSONException e1) {
-//				// TODO Auto-generated catch block
-//				e1.printStackTrace();
-//			} catch (IOException e1) {
-//				// TODO Auto-generated catch block
-//				e1.printStackTrace();
-//			} catch (ParseException e1) {
-//				// TODO Auto-generated catch block
-//				e1.printStackTrace();
-//			}
-////			System.out.println("you are a donkey");
-//		});
 	}
 	
+	@FXML
 	public void handleLoadBtn(ActionEvent event) throws IOException {
 		selectedCompany = mainApp.getHoldAllCompanies().get(loadedBox.getSelectionModel().getSelectedItem());
-		selectedDate = loadedDatePicker.getValue();
-		Date date = null;
-		try {
-			date = Date.from(selectedDate.atStartOfDay(ZoneId.systemDefault()).toInstant());
-		} catch (Exception e1) {
-			alerts.Alerts.dateInputError();
+		if (selectedCompany == null) {
+			alerts.Alerts.noSelection();
+		} else if (checkDates("load")) {
+			changePrep();
 		}
-		if (date != null) {
-//			selectedCompany.showTestDate(date);
-			changeView(event, date);
-		} else {
-			// handle no available date
-//	}
-//		Stage parent = (Stage) ((Node)event.getSource()).getScene().getWindow();
-//			System.out.println("test");
-		}
-	}
-	
-	private void changeView(ActionEvent event, Date dateFromButton) throws IOException {
-		// TODO Auto-generated method stub
-		FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(getClass().getResource("/view/StockView.fxml"));
-        AnchorPane stockView = (AnchorPane) loader.load();
-        mainApp.getRoot().setCenter(stockView);
-        
-        StockViewController controller = loader.getController();
-        controller.setMainApp(this.mainApp);
-        controller.loadData(selectedCompany, dateFromButton, "Daily");
+		
 	}
 
-	public void handleSearchBtn(ActionEvent event) {
-		setSearchString(searchNewStock.getText());
-		selectedDate2 = searchDatePicker.getValue();
-		Date date = Date.from(selectedDate2.atStartOfDay(ZoneId.systemDefault()).toInstant());
-		
-		//current problems include a failed search being added to combo box and printing an error from trying to show company data from failed search
-		try {
-			mainApp.getHoldAllCompanies().put(searchToTest, utilities.JsonParse.createDailyCompanyData(searchToTest));
-		} catch (JSONException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		} catch (IOException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		} catch (ParseException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
-		if (mainApp.getHoldAllCompanies().containsKey(searchToTest)) {
-			selectedCompany = mainApp.getHoldAllCompanies().get(searchToTest);
-			try {
-				changeView(event, date);
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+	@FXML
+	public void handleSearchBtn(ActionEvent event) throws JSONException, IOException {
+		searchToTest = searchNewStock.getText().toUpperCase();
+		if (checkDates("search")) {
+
+			if (mainApp.getHoldAllCompanies().containsKey(searchToTest)) {
+				selectedCompany = mainApp.getHoldAllCompanies().get(searchToTest);
+				try {
+					changePrep();
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			} else if (utilities.CompanyStockLookup.exists(searchToTest)) {
+				alerts.Alerts.successfulSearch();
+				try {
+					mainApp.getHoldAllCompanies().put(searchToTest,
+							utilities.JsonParse.createDailyCompanyData(searchToTest));
+					selectedCompany = mainApp.getHoldAllCompanies().get(searchToTest);
+					try {
+						changePrep();
+					} catch (IOException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+				} catch (JSONException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				} catch (IOException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				} catch (ParseException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+			} else {
+				alerts.Alerts.failedSearch();
 			}
 		}
-//		Stage parent = (Stage) ((Node)event.getSource()).getScene().getWindow();
-//		System.out.println("test2");
 	}
-	
-//	public void changeView(ActionEvent event) throws IOException {
-//		FXMLLoader loader = new FXMLLoader();
-//	}
+
+	private void changePrep() throws IOException {
+		//in order to get here at least one of the appropriate date fields has data
+		if(date != null && date2 != null) {
+			if (date.after(date2)) { //if from is after to then swap them
+				Date temp = date;
+				date = date2;
+				date2 = temp;
+			}
+			changeViewRange();
+		} else if (date == null) {
+			date = date2;
+			changeViewUnique();
+		} else {
+			changeViewUnique();
+		}
+	}
+
+	private void changeViewUnique() throws IOException {
+		if (date.before(utilities.CompareMapKeys.findEarliestStockDate(selectedCompany))) {
+			Date test = utilities.CompareMapKeys.findEarliestStockDate(selectedCompany);
+			SimpleDateFormat formatter = new SimpleDateFormat("E, MMMM dd yyyy");
+			String strDate = formatter.format(test);
+			alerts.Alerts.companyFoundPrePublicRequest(strDate);
+			changeDateForData(1, 1);
+		}
+		if (!selectedCompany.getStockData().containsKey(date)) {
+			alerts.Alerts.dateNotFound();
+			changeDateForData(1, -1);
+		}
+		FXMLLoader loader = new FXMLLoader();
+		loader.setLocation(getClass().getResource("/view/StockView.fxml"));
+		AnchorPane stockView = (AnchorPane) loader.load();
+		mainApp.getRoot().setCenter(stockView);
+
+		StockViewController controller = loader.getController();
+		controller.setMainApp(this.mainApp);
+		controller.loadData(selectedCompany, date, "Daily");
+	}
+
+	private void changeViewRange() throws IOException {
+		if (date.before(utilities.CompareMapKeys.findEarliestStockDate(selectedCompany))) {
+			Date test = utilities.CompareMapKeys.findEarliestStockDate(selectedCompany);
+			SimpleDateFormat formatter = new SimpleDateFormat("E, MMMM dd yyyy");
+			String strDate = formatter.format(test);
+			alerts.Alerts.companyFoundPrePublicRequest(strDate);
+			changeDateForData(1, 1);
+			if (!date.before(date2)) { // if date caught date2 then also increment date2
+				while (!date.before(date2)) {
+					changeDateForData(2, 1);
+				}
+			}
+		}
+
+		if (!selectedCompany.getStockData().containsKey(date)) {
+			alerts.Alerts.dateNotFound();
+			changeDateForData(1, -1);
+		}
+		if (!selectedCompany.getStockData().containsKey(date2)) {
+			alerts.Alerts.dateNotFound();
+			changeDateForData(2, -1);
+			if (!date2.after(date)) { // if date2 has fallen back into date1 then push date1 back one
+				while (!date2.after(date)) {
+					changeDateForData(1, -1);
+				}
+			}
+		}
+		
+		FXMLLoader loader = new FXMLLoader();
+		loader.setLocation(getClass().getResource("/view/StockView.fxml"));
+		AnchorPane stockView = (AnchorPane) loader.load();
+		mainApp.getRoot().setCenter(stockView);
+
+		StockViewController controller = loader.getController();
+		controller.setMainApp(this.mainApp);
+		controller.loadData(selectedCompany, date, date2, "Daily");
+	}
+
+	private boolean checkDates(String source) {
+		boolean proceed = false;
+		if(source.equals("load")) {
+			selectedDate = loadedDatePickerFrom.getValue();
+			selectedDate2 = loadedDatePickerTo.getValue();
+		} else if (source.equals("search")) {
+			selectedDate = searchDatePickerFrom.getValue();
+			selectedDate2 = searchDatePickerTo.getValue();
+		}
+		date = null;
+		date2 = null;
+		if (selectedDate != null && selectedDate2 != null) {
+			date = Date.from(selectedDate.atStartOfDay(ZoneId.systemDefault()).toInstant());
+			date2 = Date.from(selectedDate2.atStartOfDay(ZoneId.systemDefault()).toInstant());
+			proceed = true;
+		} else {
+			try {
+				if (selectedDate == null) {
+					date2 = Date.from(selectedDate2.atStartOfDay(ZoneId.systemDefault()).toInstant());
+					proceed = true;
+				} else if (selectedDate2 == null) {
+					date = Date.from(selectedDate.atStartOfDay(ZoneId.systemDefault()).toInstant());
+					proceed = true;
+				}
+			} catch (Exception e) {
+				alerts.Alerts.dateInputError();
+			}
+		}
+		return proceed;
+	}
 	
 	public void populateComboBox() {
 		loadedBox.getItems().clear();
@@ -173,16 +232,26 @@ public class MainViewController {
 		}
 		loadedBox.setItems(boxChoices);
 	}
-
-	public MainViewController() {//HashMap<String, CompanyData> allCompanies) {
+	
+	private void changeDateForData(int fromOrTo, int direction) {
+		Calendar c = Calendar.getInstance();
+		if(fromOrTo == 1) {
+			c.setTime(date);
+			while (!selectedCompany.getStockData().containsKey(date)) {
+				c.add(Calendar.DATE, direction);
+				date = c.getTime();
+			}
+		} else if(fromOrTo == 2) {
+			c.setTime(date2);
+			while (!selectedCompany.getStockData().containsKey(date2)) {
+				c.add(Calendar.DATE, direction);
+				date2 = c.getTime();
+			}
+		}
 	}
 	
 	public void setMainApp(MainApp mainApp) {
 		this.mainApp = mainApp;
-	}
-	
-	private void setSearchString(String test) {
-		searchToTest = test;
 	}
 	
 }

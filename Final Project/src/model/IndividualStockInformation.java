@@ -4,11 +4,11 @@ import java.util.Date;
 
 public class IndividualStockInformation {
 	private final Date dateOfStock;
-	private final double open;
-	private final double high;
-	private final double low;
-	private final double close;
-	private final long volume;
+	private double open;
+	private double high;
+	private double low;
+	private double close;
+	private long volume;
 	private final int interval;
 
 	public IndividualStockInformation(Date dateOfStock, double open, double high, double low, double close,
@@ -21,6 +21,26 @@ public class IndividualStockInformation {
 		this.close = close;
 		this.volume = volume;
 		this.interval = interval;
+	}
+
+	public void setOpen(double open) {
+		this.open = open;
+	}
+
+	public void setHigh(double high) {
+		this.high = high;
+	}
+
+	public void setLow(double low) {
+		this.low = low;
+	}
+
+	public void setClose(double close) {
+		this.close = close;
+	}
+
+	public void setVolume(long volume) {
+		this.volume = volume;
 	}
 
 	public Date getDateOfStock() {

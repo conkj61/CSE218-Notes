@@ -46,5 +46,16 @@ public class CompanyStockLookup {
 			is.close();
 		}
 	}
+	
+	public static boolean exists(String companyStockAcronym) throws JSONException, IOException {
+		JSONObject test = dailyStockInfo(companyStockAcronym);
+		boolean exists = false;
+		if(test.has("Note")) {
+			alerts.Alerts.timeOutAlert();
+		} else if(test.has("Meta Data")) {
+			exists = true;
+		}
+		return exists;
+	}
 
 }

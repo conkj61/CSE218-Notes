@@ -22,6 +22,8 @@ public class MainApp extends Application {
 	private static HashMap<String, CompanyData> holdAllCompanies;
 	
 	public static void main(String[] args) throws JSONException, IOException, ParseException {
+		//If the program "has error" check the properties of the project. The Java build path libraries may have Json jar pointing at the wrong directory
+		//due to my two computers having different number of drives.
 		holdAllCompanies = new HashMap<String, CompanyData>();
 		utilities.JsonParse.createStartingCompanies(holdAllCompanies);
 		launch(args);
