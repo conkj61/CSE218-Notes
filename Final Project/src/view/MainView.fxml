@@ -35,10 +35,16 @@
                               <Font size="14.0" />
                            </font>
                         </Label>
-                        <Label maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" text="1. See daily prices of pre-loaded stocks." GridPane.rowIndex="1" />
-                        <Label maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" text="2. Get average, high, and low prices over a chosen range." GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                        <Label maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" text="3. Search for your own stock if you know the stock acronym." GridPane.rowIndex="2" />
-                        <Label maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" text="4. See percentage guesses on buy/sell times." GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                        <Label maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" text="1. See daily prices of pre-loaded stocks." GridPane.rowIndex="1">
+                           <GridPane.margin>
+                              <Insets left="5.0" />
+                           </GridPane.margin></Label>
+                        <Label maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" text="2. Get average, high, and low prices on a chosen date or range." GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                        <Label maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" text="3. Search for your own stock if you know the stock acronym." GridPane.rowIndex="2">
+                           <GridPane.margin>
+                              <Insets left="5.0" />
+                           </GridPane.margin></Label>
+                        <Label maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" text="4. See percentage of most represented highs and lows" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="2" />
                      </children>
                   </GridPane>
                </children>
@@ -68,16 +74,22 @@
                                        <font>
                                           <Font name="System Bold" size="12.0" />
                                        </font>
+                                       <GridPane.margin>
+                                          <Insets left="5.0" />
+                                       </GridPane.margin>
                                     </Label>
                                     <Button fx:id="loadButton" mnemonicParsing="false" onAction="#handleLoadBtn" prefWidth="65.0" text="Load" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="4">
                                        <GridPane.margin>
                                           <Insets left="5.0" right="5.0" />
                                        </GridPane.margin></Button>
                                     <Label text="Date From:" GridPane.halignment="CENTER" GridPane.rowIndex="2" />
-                                    <DatePicker fx:id="loadedDatePickerFrom" promptText="yyyy-MM-dd" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="2" />
-                                    <DatePicker fx:id="loadedDatePickerTo" promptText="yyyy-MM-dd" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="3" />
+                                    <DatePicker fx:id="loadedDatePickerFrom" promptText="MM/dd/yyyy" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="2" />
+                                    <DatePicker fx:id="loadedDatePickerTo" promptText="MM/dd/yyyy" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="3" />
                                     <Label text="Date To:" GridPane.halignment="CENTER" GridPane.rowIndex="3" />
-                                    <Label text="When choosing dates, if only one is filled only that day will search." wrapText="true" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="4" />
+                                    <Label text="When choosing dates, if only one is filled only that day will search." wrapText="true" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="4">
+                                       <GridPane.margin>
+                                          <Insets left="5.0" />
+                                       </GridPane.margin></Label>
                                  </children>
                               </GridPane>
                            </children>
@@ -109,12 +121,15 @@
                                           <Insets left="70.0" right="70.0" />
                                        </GridPane.margin>
                                     </TextField>
-                                    <Label alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" text="Warning! This option will only work with the exact company stock acronym!" wrapText="true" GridPane.columnSpan="2" GridPane.rowIndex="4" />
+                                    <Label alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" text="Warning! This option will only work with the exact company stock acronym!" wrapText="true" GridPane.columnSpan="2" GridPane.rowIndex="4">
+                                       <GridPane.margin>
+                                          <Insets left="5.0" />
+                                       </GridPane.margin></Label>
                                     <Button fx:id="searchButton" mnemonicParsing="false" onAction="#handleSearchBtn" prefWidth="65.0" text="Search" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="4" GridPane.rowSpan="2" />
-                                    <DatePicker fx:id="searchDatePickerFrom" promptText="yyyy-MM-dd" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="2" />
+                                    <DatePicker fx:id="searchDatePickerFrom" promptText="MM/dd/yyyy" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="2" />
                                     <Label text="Date To:" GridPane.halignment="CENTER" GridPane.rowIndex="3" />
                                     <Label text="Date From:" GridPane.halignment="CENTER" GridPane.rowIndex="2" />
-                                    <DatePicker fx:id="searchDatePickerTo" promptText="yyyy-MM-dd" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="3" />
+                                    <DatePicker fx:id="searchDatePickerTo" promptText="MM/dd/yyyy" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="3" />
                                  </children>
                               </GridPane>
                            </children>
