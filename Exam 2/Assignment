@@ -1,0 +1,12 @@
+Write a functions interface called Chargeable that has a method called charge(). Develop a java program
+that allows you to charge the following chargeables in the following ways:
+	1. Car (Id'ed by license number, charge $7.00 each)
+	2. Truck (Id'ed by license number, charge $10 each)
+	3. Pedestrian (Id'ed by social security number, charge $3 each)
+	4. Bike (Id'ed by vin number, charge $4 each)
+	
+The program will be used at a ticket booth at Port Jeff Ferry so it can take up to 70 cars,
+30 trucks, 200 pedestrians and 100 bikes. These chargeables must be stored in a data structure.
+The program, with GUI or without GUI, must calculate and generate an invoice for each chargeable item
+the moment the chargeable shows up at the ticket booth as fast as possible. It will also calculate the
+total charged amount collected for the entire data structure upon request.

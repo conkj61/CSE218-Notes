@@ -277,7 +277,9 @@ public class StockViewController {
 		while (!dateTraverse.after(endDate)) {
 			average += requestedInfo.getStockData().get(dateTraverse).getOpen();
 			days++;
-			incrementDate();
+			if (dateTraverse != endDate) {
+				incrementDate();
+			}
 		}
 		return average / days;
 	}
