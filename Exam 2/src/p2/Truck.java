@@ -1,9 +1,15 @@
 package p2;
 
-public class Truck extends Transportation {
+public class Truck implements Chargeable {
+	public String plateValue;
 
-	public Truck(String id) {
-		super(id);
+	public Truck(String plateValue) {
+		this.plateValue = plateValue;
+	}
+
+	@Override
+	public int charge() {
+		return 10;
 	}
 
 }

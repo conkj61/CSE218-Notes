@@ -1,9 +1,15 @@
 package p2;
 
-public class Pedestrain extends Transportation {
+public class Pedestrain implements Chargeable {
+	public String social;
 
-	public Pedestrain(String id) {
-		super(id);
+	public Pedestrain(String social) {
+		this.social = social;
+	}
+
+	@Override
+	public int charge() {
+		return 3;
 	}
 
 }

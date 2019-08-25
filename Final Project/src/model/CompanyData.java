@@ -1,10 +1,11 @@
 package model;
 
+import java.io.Serializable;
 import java.text.DecimalFormat;
 import java.util.Date;
 import java.util.HashMap;
 
-public class CompanyData {
+public class CompanyData implements Serializable {
 	private final String stockName;
 	private String lastRefresh;
 	private HashMap<Date, IndividualStockInformation> stockData;
@@ -28,6 +29,10 @@ public class CompanyData {
 		return stockData;
 	}
 	
+	public void setStockData(HashMap<Date, IndividualStockInformation> stockData) {
+		this.stockData = stockData;
+	}
+
 	public void showTestDate(Date testDate) {
 		DecimalFormat df = new DecimalFormat("#.00");
 		System.out.println(stockName + " " + stockData.get(testDate).getDateOfStock() + ":");
